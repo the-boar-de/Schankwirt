@@ -1,10 +1,10 @@
-﻿using Discord;
+﻿//Own 
+
+using Discord;
 using Discord.WebSocket;
 using System;
+using System.Net.Sockets;
 using System.Threading.Tasks;
-
-//Own 
-using Dirscord_Bot.Class;
 
 class Program
 {
@@ -12,15 +12,15 @@ class Program
     //Global 
     //Websocket
 
-    private DiscordSocketClient gMainClient;
-    private CL_Websocket gclWebsocket;
+    private DiscordSocketClient gclClient;
+
 
     //Config 
-    private CL_ConfigReader gclConfigReader;
+
     string gsToken = "MTM5MjkxODg3MTQ3NjAxNTMyNw.GbFEA3.4GTqX5D2QqV8yc9h-DW3LjplY6GFrUV71zIKC8"; // Niemals veröffentlichen!
 
     //Commands & Events
-    private CL_Commands gclCommands;
+    //private CL_Commands gclCommands;
 
 
     static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
@@ -29,26 +29,32 @@ class Program
     public async Task MainAsync()
 
     {
+        //Client call
 
         // Main start if Bot client , call of Websocket
-        gMainClient = new DiscordSocketClient();
+        gclClient = new DiscordSocketClient();
 
-        gclWebsocket = new CL_Websocket(gMainClient);
 
-        gMainClient.Log += Log;
-        gMainClient.MessageReceived += MessageReceivedAsync;
+        gclClient.Log += t_LogAsync;
 
-        gclConfigReader = new CL_ConfigReader("config.json",
-                                                "/appdata/");
 
-        await gclWebsocket.M_WebsocketAsync(gsToken);
+       
+        await gclClient.LoginAsync(TokenType.Bot, gsToken);
+        await gclClient.StartAsync();
 
+      
+
+
+        gclClient.Log += t_LogAsync;
+        gclClient.MessageReceived += MessageReceivedAsync;
+
+        await Task.Delay(-1);
     }
-
+    //---------------------------------------------------------------------------
     // Log Message
-    private Task Log(LogMessage msg)
+    private Task t_LogAsync(LogMessage log)
     {
-        Console.WriteLine(msg.ToString());
+        Console.WriteLine(log.ToString());
         return Task.CompletedTask;
     }
 
