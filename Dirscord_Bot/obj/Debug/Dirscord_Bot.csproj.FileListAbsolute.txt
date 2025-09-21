@@ -49,4 +49,3 @@ C:\Projekte\Discord_Bot\Dirscord_Bot\bin\Debug\System.Threading.Tasks.Extensions
 C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord.97D9F9AE.Up2Date
 C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord_Bot.exe
 C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord_Bot.pdb
-C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord_Bot.exe.config

@@ -1,6 +1,7 @@
 ﻿//Own 
 
 using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using System;
 using System.Net.Sockets;
@@ -23,10 +24,10 @@ class Program
     //private CL_Commands gclCommands;
 
 
-    static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
+    static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
 
     // MainAsync Methode, die den Bot startet
-    public async Task MainAsync()
+    public async Task taskClientAsync()
 
     {
         //Client call
@@ -35,31 +36,28 @@ class Program
         gclClient = new DiscordSocketClient();
 
 
-        gclClient.Log += t_LogAsync;
+        gclClient.Log += taskLoggerAsync;
 
 
        
         await gclClient.LoginAsync(TokenType.Bot, gsToken);
         await gclClient.StartAsync();
 
-      
-
-
-        gclClient.Log += t_LogAsync;
-        gclClient.MessageReceived += MessageReceivedAsync;
+        gclClient.Log += taskLoggerAsync;
+        gclClient.MessageReceived += taskMessagerAsync;
 
         await Task.Delay(-1);
     }
     //---------------------------------------------------------------------------
     // Log Message
-    private Task t_LogAsync(LogMessage log)
+    private Task taskLoggerAsync(LogMessage log)
     {
         Console.WriteLine(log.ToString());
         return Task.CompletedTask;
     }
 
     // Event Handler für empfangene Nachrichten
-    private async Task MessageReceivedAsync(SocketMessage message)
+    private async Task taskMessagerAsync(SocketMessage message)
     {
         if (message.Author.IsBot) return;
 
@@ -72,5 +70,10 @@ class Program
     }
 
 
+   private async Task taskCommandAsny()
+    {
+        
 
+
+    }
 }
