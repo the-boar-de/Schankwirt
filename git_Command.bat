@@ -39,4 +39,7 @@ echo.
 echo === Fertig ===
 echo Git add und commit abgeschlossen.
 
+echo == Upload ===
+git push
+
 pause
