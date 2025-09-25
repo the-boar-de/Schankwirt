@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 #Run Bot
-CMD ["dotnet", "Pen_n_Paper.dll"]
+CMD ["dotnet", "Discord_Bot.dll"]
