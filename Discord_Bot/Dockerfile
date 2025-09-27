@@ -3,7 +3,7 @@
 # 
 # Buidl Stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
 #Copy project file
 COPY *.csproj ./
@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 
 #Run Bot
-CMD ["dotnet", "Discord_Bot.dll"]
+ENTRYPOINT ["dotnet", "Discord_Bot.dll"]
