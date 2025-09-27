@@ -14,7 +14,7 @@ RUN dotnet publish -c Release -o out
 
 #Runtime Stage
 FROM mcr.microsoft.com/dotnet/runtime:8.0
-WORKDIR /app
+WORKDIR /src
 
 #Copy built application
 COPY --from=build /src/out .
