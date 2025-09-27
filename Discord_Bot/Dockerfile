@@ -17,7 +17,7 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0
 WORKDIR /app
 
 #Copy built application
-COPY --from=build /app/out .
+COPY --from=build /src/out .
 
 #Run Bot
-ENTRYPOINT ["dotnet", "Discord_Bot.dll"]
+ENTRYPOINT ["dotnet", "Dirscord_Bot.dll"]
