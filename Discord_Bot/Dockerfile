@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 #Copy project file
-COPY Dirscord_Bot.csproj ./
+COPY Discord_Bot.csproj ./
 RUN dotnet restore
 
 COPY . ./
@@ -20,4 +20,4 @@ WORKDIR /src
 COPY --from=build /src/out .
 
 #Run Bot
-ENTRYPOINT ["dotnet", "Dirscord_Bot.dll"]
+ENTRYPOINT ["dotnet", "Discord_Bot.dll"]
