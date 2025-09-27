@@ -39,7 +39,7 @@ class Program
         gclClient.Log += taskLoggerAsync;
 
 
-       
+
         await gclClient.LoginAsync(TokenType.Bot, gsToken);
         await gclClient.StartAsync();
 
@@ -70,10 +70,10 @@ class Program
     }
 
 
-   private async Task taskCommandAsny()
-    {
-        
+    /*private async Task taskCommandAsny()
+     {
 
 
-    }
+
+     }*/
 }
