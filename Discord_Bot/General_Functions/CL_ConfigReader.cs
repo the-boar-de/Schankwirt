@@ -1,5 +1,6 @@
 ﻿//standard system refernces
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 //own refernces
 
@@ -7,19 +8,21 @@
 
 
 //Class namespase (refernce)
-namespace CL_ConfigReader.Class
+namespace CL_ConfigReader
 {
     //Class
-    internal class CL_ConfigReader
+    public class CL_ConfigReader
     {
         //Class Variables
         //Field
-        string sPrefix;
+        internal List<string> lConfiguration;
+        bool bConfigValid;
+       
 
         //Properties
-        public string __Get
+        public List<string> __Get
         {
-            get { return sPrefix; }
+            get { return lConfiguration; }
         }
 
         //Internal
@@ -42,12 +45,26 @@ namespace CL_ConfigReader.Class
             }
         }
 
+        private bool M_ReadConfig(
+            //Inputs
+            string sInFilePath,
+            string sInFileName
+          )
+        {
+            Console.WriteLine("Read config");
+            string sTemp = File.ReadAllText(Path.Combine(sInFilePath + sInFileName));
+
+            List<string> lConfiguration = JsonConvert.DeserializeObject<List<string>>(sTemp);
+
+            return true;
+        }
+
 
 
 
         //-------------------------------------------------------------------
         //Constructor 
-        CL_ConfigReader(
+        public CL_ConfigReader(
         //Input
         string sInFilePath,
         string sInFileName
@@ -56,9 +73,13 @@ namespace CL_ConfigReader.Class
         {
             if (!this.M_Validate(sInFilePath, sInFileName))
             {
-                return;
+                return ;
             }
 
+            if (!this.bConfigValid)
+            {
+                this.bConfigValid =  M_ReadConfig(sInFilePath, sInFileName);
+            }
 
 
 
