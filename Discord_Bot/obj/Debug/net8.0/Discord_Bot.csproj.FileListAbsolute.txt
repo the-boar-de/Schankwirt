@@ -29,3 +29,4 @@ C:\Projekte\Discord_Bot\test_branch\Discord_Bot\Discord_Bot\obj\Debug\net8.0\ref
 C:\Projekte\Discord_Bot\test_branch\Discord_Bot\Discord_Bot\obj\Debug\net8.0\Discord_Bot.pdb
 C:\Projekte\Discord_Bot\test_branch\Discord_Bot\Discord_Bot\obj\Debug\net8.0\Discord_Bot.genruntimeconfig.cache
 C:\Projekte\Discord_Bot\test_branch\Discord_Bot\Discord_Bot\obj\Debug\net8.0\ref\Discord_Bot.dll
+C:\Projekte\Discord_Bot\test_branch\Discord_Bot\Discord_Bot\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll

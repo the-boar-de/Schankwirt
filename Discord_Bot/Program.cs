@@ -2,55 +2,47 @@
 
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using Discord.WebSocket;
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Enum_Config;
+using Discord.Commands.Builders;
 
 class Program
 {
 
     //Global 
-    //Websocket
+    //Websocket & Config
 
-    private DiscordSocketClient gclClient;
-
-
-    //Config 
-    private CL_ConfigReader.CL_ConfigReader clConfigreader;
-    string gsToken = "MTM5MjkxODg3MTQ3NjAxNTMyNw.GbFEA3.4GTqX5D2QqV8yc9h-DW3LjplY6GFrUV71zIKC8"; // Niemals veröffentlichen!
-
-    //Commands & Events
-    //private CL_Commands gclCommands;
-
-
-    static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
-
+    private DiscordSocketClient gclClient = new DiscordSocketClient();
+    private CL_ConfigReader.CL_ConfigReader gclConfigreader = new CL_ConfigReader.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
+                                                                                                    "config.json");
     // MainAsync Methode, die den Bot startet
+    static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
+    //WebSocket Task
     public async Task taskClientAsync()
-
     {
-        clConfigreader = new CL_ConfigReader.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config",
-                                                                    "config.json");
-
-        gsToken = clConfigreader.__Get[(int)E_Config.eToken];
-
+ 
         //Client call
 
         // Main start if Bot client , call of Websocket
-        gclClient = new DiscordSocketClient();
+        if (gclConfigreader.__GetConfigList != null)
+        {  
+            this.gclClient.Log += taskLoggerAsync;
 
+            await this.gclClient.LoginAsync(TokenType.Bot, gclConfigreader.__GetConfigList[(int)E_Config.eToken]);
 
-        gclClient.Log += taskLoggerAsync;
+            await this.gclClient.StartAsync();
 
-        await gclClient.LoginAsync(TokenType.Bot, gsToken);
-        await gclClient.StartAsync();
+            this.gclClient.Log += taskLoggerAsync;
+            this.gclClient.MessageReceived += taskMessagerAsync;
 
-        gclClient.Log += taskLoggerAsync;
-        gclClient.MessageReceived += taskMessagerAsync;
+            await Task.Delay(-1);
 
-        await Task.Delay(-1);
+        }
+
     }
     //---------------------------------------------------------------------------
     // Log Message
@@ -70,14 +62,15 @@ class Program
             await message.Channel.SendMessageAsync("Pong!");
 
         }
-
     }
 
 
-    /*private async Task taskCommandAsny()
+    //Commands & Events
+    
+    private async Task taskCommandAsny()
      {
+        
 
 
-
-     }*/
+     }
 }

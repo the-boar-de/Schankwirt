@@ -15,12 +15,11 @@ namespace CL_ConfigReader
     {
         //Class Variables
         //Field
-        internal List<string> lConfiguration;
-        bool bConfigValid;
+        private List<string> lConfiguration = new();
        
 
         //Properties
-        public List<string> __Get
+        public List<string> __GetConfigList
         {
             get { return lConfiguration; }
         }
@@ -31,8 +30,8 @@ namespace CL_ConfigReader
         //Methodes
         private bool M_Validate(
             //Input
-            object oInObject1,
-            object oInObject2)
+             object oInObject1,
+             object oInObject2)
         {
             if (oInObject1 == null || oInObject2 == null)
             {
@@ -47,16 +46,35 @@ namespace CL_ConfigReader
 
         private bool M_ReadConfig(
             //Inputs
-            string sInFilePath,
-            string sInFileName
+            ref string sInFilePath,
+            ref string sInFileName
           )
         {
-            Console.WriteLine("Read config");
-            string sTemp = File.ReadAllText(Path.Combine(sInFilePath + sInFileName));
+            if (sInFilePath == null || sInFileName == null)
+            {
+                Console.WriteLine("No Path or Filename was handover");
 
-            List<string> lConfiguration = JsonConvert.DeserializeObject<List<string>>(sTemp);
+                //exception handler
+                // ?????
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Read Config...");
+                string sTemp = File.ReadAllText(Path.Combine(sInFilePath + sInFileName));
+                this.lConfiguration = JsonConvert.DeserializeObject<List<string>>(sTemp);
 
-            return true;
+                foreach (string sTempString in lConfiguration)
+                {
+                    Console.WriteLine(sTempString);
+                }
+
+                return true;
+
+
+
+            }
+
         }
 
 
@@ -66,21 +84,17 @@ namespace CL_ConfigReader
         //Constructor 
         public CL_ConfigReader(
         //Input
-        string sInFilePath,
-        string sInFileName
+         string sInFilePath,
+         string sInFileName
 
         )
         {
-            if (!this.M_Validate(sInFilePath, sInFileName))
+            if (!this.M_Validate( sInFilePath, sInFileName))
             {
                 return ;
             }
 
-            if (!this.bConfigValid)
-            {
-                this.bConfigValid =  M_ReadConfig(sInFilePath, sInFileName);
-            }
-
+            M_ReadConfig(ref sInFilePath, ref sInFileName);
 
 
         }
