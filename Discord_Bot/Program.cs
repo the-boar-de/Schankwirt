@@ -64,13 +64,14 @@ class Program
         }
     }
 
-
-    //Commands & Events
     
+    //Commands & Events 
     private async Task taskCommandAsny()
      {
-        
+         var guild = client.GetGuild(guildId);
+    //
 
+        
 
      }
 }
