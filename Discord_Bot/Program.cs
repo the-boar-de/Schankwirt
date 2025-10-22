@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using Enum_Config;
 using Discord.Commands.Builders;
+using Discord.Interactions.Builders;
 
 class Program
 {
@@ -16,9 +17,11 @@ class Program
     //Global 
     //Websocket & Config
 
-    private DiscordSocketClient gclClient = new DiscordSocketClient();
-    private CL_ConfigReader.CL_ConfigReader gclConfigreader = new CL_ConfigReader.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
+    private DiscordSocketClient _client = new DiscordSocketClient();
+    private GeneralFunctions.CL_ConfigReader ConfigReader = new GeneralFunctions.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
                                                                                                     "config.json");
+    private 
+    
     // MainAsync Methode, die den Bot startet
     static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
     //WebSocket Task
@@ -28,22 +31,36 @@ class Program
         //Client call
 
         // Main start if Bot client , call of Websocket
-        if (gclConfigreader.__GetConfigList != null)
-        {  
-            this.gclClient.Log += taskLoggerAsync;
+        if (ConfigReader.__GetConfigList != null)
+        {
 
-            await this.gclClient.LoginAsync(TokenType.Bot, gclConfigreader.__GetConfigList[(int)E_Config.eToken]);
+            _client.Guilds.FirstOrDefault();
 
-            await this.gclClient.StartAsync();
+            _client.SlashCommandExecuted += Commandhandler;
 
-            this.gclClient.Log += taskLoggerAsync;
-            this.gclClient.MessageReceived += taskMessagerAsync;
+           
+            await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetConfigList[(int)E_Config.eToken]);
+
+            await _client.StartAsync();
+
+            _client.Log += taskLoggerAsync;
+            _client.MessageReceived += taskMessagerAsync;
+
+
+            _client.Ready += async () =>
+                {
+                    foreach (var guild in  _client.Guilds)
+                    {
+                      Console.WriteLine($"Bot ist auf: {guild.Name} (ID: {guild.Id})");
+                    }
+
+                };
 
             await Task.Delay(-1);
-
         }
 
     }
+
     //---------------------------------------------------------------------------
     // Log Message
     private Task taskLoggerAsync(LogMessage log)
@@ -64,14 +81,21 @@ class Program
         }
     }
 
-    
-    //Commands & Events 
-    private async Task taskCommandAsny()
-     {
-         var guild = client.GetGuild(guildId);
-    //
+    public async Task Commandhandler(SocketSlashCommand command)
+    {
+        //_client.BulkOverwriteGlobalApplicationCommandsAsync;
+        //_client.Ready += clien_Ready;1392436922760302732
+        await command.RespondAsync($"You executed {command.Data.Name}");
 
-        
+
+    }
+
+
+    //Commands & Events 
+    //[SlashCommand("test")]
+    public async Task testatsk()
+     {
+
 
      }
 }

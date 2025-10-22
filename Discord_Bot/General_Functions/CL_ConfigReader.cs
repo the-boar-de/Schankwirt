@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 
 //Class namespase (refernce)
-namespace CL_ConfigReader
+namespace GeneralFunctions
 {
     //Class
     public class CL_ConfigReader
