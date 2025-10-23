@@ -1,4 +1,4 @@
-﻿//Own 
+//Own 
 
 using Discord;
 using Discord.Commands;
@@ -17,10 +17,10 @@ class Program
     //Global 
     //Websocket & Config
 
-    private DiscordSocketClient _client = new DiscordSocketClient();
-    private GeneralFunctions.CL_ConfigReader ConfigReader = new GeneralFunctions.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
+    DiscordSocketClient _client;
+    GeneralFunctions.CL_ConfigReader ConfigReader = new GeneralFunctions.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
                                                                                                     "config.json");
-    private 
+    
     
     // MainAsync Methode, die den Bot startet
     static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
@@ -29,10 +29,16 @@ class Program
     {
  
         //Client call
+        var config = new DiscordSocketConfig
+        {
+            GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
+        };
+
 
         // Main start if Bot client , call of Websocket
         if (ConfigReader.__GetConfigList != null)
         {
+            _client = new DiscordSocketClient(config);
 
             _client.Guilds.FirstOrDefault();
 
@@ -51,10 +57,11 @@ class Program
                 {
                     foreach (var guild in  _client.Guilds)
                     {
-                      Console.WriteLine($"Bot ist auf: {guild.Name} (ID: {guild.Id})");
+                        Logger($"Bot ist auf: {guild.Name} (ID: {guild.Id})");
                     }
 
                 };
+            _client.lo
 
             await Task.Delay(-1);
         }
@@ -63,8 +70,9 @@ class Program
 
     //---------------------------------------------------------------------------
     // Log Message
-    private Task taskLoggerAsync(LogMessage log)
+    private static Task Logger(LogMessage log)
     {
+
         Console.WriteLine(log.ToString());
         return Task.CompletedTask;
     }
