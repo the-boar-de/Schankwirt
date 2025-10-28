@@ -9,6 +9,9 @@
       "Discord_Bot/1.0.0": {
         "dependencies": {
           "Discord.Net": "3.18.0",
+          "Discord.Net.Commands": "3.18.0",
+          "Discord.Net.Interactions": "3.18.0",
+          "Discord.Net.WebSocket": "3.18.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.9",
           "Newtonsoft.Json": "13.0.4",
           "System.Windows.Extensions": "9.0.9"

@@ -737,6 +737,9 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Discord.Net >= 3.18.0",
+      "Discord.Net.Commands >= 3.18.0",
+      "Discord.Net.Interactions >= 3.18.0",
+      "Discord.Net.WebSocket >= 3.18.0",
       "Microsoft.Extensions.DependencyInjection >= 9.0.9",
       "Newtonsoft.Json >= 13.0.4",
       "System.Windows.Extensions >= 9.0.9"
@@ -797,6 +800,18 @@
             "target": "Package",
             "version": "[3.18.0, )"
           },
+          "Discord.Net.Commands": {
+            "target": "Package",
+            "version": "[3.18.0, )"
+          },
+          "Discord.Net.Interactions": {
+            "target": "Package",
+            "version": "[3.18.0, )"
+          },
+          "Discord.Net.WebSocket": {
+            "target": "Package",
+            "version": "[3.18.0, )"
+          },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.9, )"
@@ -826,7 +841,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

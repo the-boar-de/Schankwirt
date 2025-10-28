@@ -1,15 +1,15 @@
 //Own 
 
 using Discord;
-using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Enum_Config;
+using Microsoft.VisualBasic;
 using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Enum_Config;
-using Discord.Commands.Builders;
-using Discord.Interactions.Builders;
+
+
 
 class Program
 {
@@ -18,8 +18,12 @@ class Program
     //Websocket & Config
 
     DiscordSocketClient _client;
-    GeneralFunctions.CL_ConfigReader ConfigReader = new GeneralFunctions.CL_ConfigReader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
-                                                                                                    "config.json");
+    GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
+                                                                                                    "config.json", 
+                                                                                                    Logger);
+
+    private InteractionService _interactions ;
+    private ulong guildId;
     
     
     // MainAsync Methode, die den Bot startet
@@ -27,52 +31,52 @@ class Program
     //WebSocket Task
     public async Task taskClientAsync()
     {
- 
-        //Client call
         var config = new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent
+            GatewayIntents = GatewayIntents.Guilds // Minimum für Slash Commands
         };
 
+        var client = new DiscordSocketClient(config);
 
         // Main start if Bot client , call of Websocket
         if (ConfigReader.__GetConfigList != null)
         {
-            _client = new DiscordSocketClient(config);
 
+            _client = new DiscordSocketClient(config);
             _client.Guilds.FirstOrDefault();
 
-            _client.SlashCommandExecuted += Commandhandler;
 
-           
+            _client.InteractionCreated += InteractionHandler;
             await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetConfigList[(int)E_Config.eToken]);
-
             await _client.StartAsync();
-
-            _client.Log += taskLoggerAsync;
+            _client.Log += Logger;
+            _interactions= new InteractionService(_client);
             _client.MessageReceived += taskMessagerAsync;
 
-
+            //When bot is ready check the guilds 
             _client.Ready += async () =>
                 {
-                    foreach (var guild in  _client.Guilds)
+                    foreach (var guild in _client.Guilds)
                     {
-                        Logger($"Bot ist auf: {guild.Name} (ID: {guild.Id})");
+                        guildId = guild.Id;
+                        var log = new LogMessage(LogSeverity.Info, "Bot", $"Bot ist auf: {guild.Name} (ID: {guild.Id})");
+                        await Logger(log);
+                        await _interactions.RegisterCommandsToGuildAsync(guildId);
                     }
-
                 };
-            _client.lo
-
+            // Commands zur InteractionService hinzufügen
+            await _interactions.AddModulesAsync(
+                assembly: System.Reflection.Assembly.GetEntryAssembly(),
+                services: null
+            );
             await Task.Delay(-1);
         }
-
     }
 
     //---------------------------------------------------------------------------
     // Log Message
     private static Task Logger(LogMessage log)
     {
-
         Console.WriteLine(log.ToString());
         return Task.CompletedTask;
     }
@@ -89,21 +93,13 @@ class Program
         }
     }
 
-    public async Task Commandhandler(SocketSlashCommand command)
+    // InteractionHandler führt Commands AUS
+    private async Task InteractionHandler(SocketInteraction interaction)
     {
-        //_client.BulkOverwriteGlobalApplicationCommandsAsync;
-        //_client.Ready += clien_Ready;1392436922760302732
-        await command.RespondAsync($"You executed {command.Data.Name}");
-
-
+        var context = new SocketInteractionContext(_client, interaction);
+        await _interactions.ExecuteCommandAsync(context, null);
     }
 
 
-    //Commands & Events 
-    //[SlashCommand("test")]
-    public async Task testatsk()
-     {
 
-
-     }
 }
