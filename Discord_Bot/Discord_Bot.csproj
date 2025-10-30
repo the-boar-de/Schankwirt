@@ -21,4 +21,9 @@
     <Folder Include="_Structs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Dockerfile" />
+    <Content Remove="Dockerfile" />
+</ItemGroup>
+
 </Project>

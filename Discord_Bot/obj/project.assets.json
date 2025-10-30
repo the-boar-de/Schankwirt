@@ -747,19 +747,19 @@
   },
   "packageFolders": {
     "C:\\Users\\Chris\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "D:\\Programme\\Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
+      "projectUniqueName": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
       "projectName": "Discord_Bot",
-      "projectPath": "C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
+      "projectPath": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
       "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-      "outputPath": "C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\obj\\",
+      "outputPath": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Programme\\Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -771,7 +771,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -841,7 +840,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

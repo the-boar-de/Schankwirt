@@ -7,6 +7,7 @@ using Enum_Config;
 using Microsoft.VisualBasic;
 using System;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 
@@ -17,12 +18,11 @@ class Program
     //Global 
     //Websocket & Config
 
-    DiscordSocketClient _client;
-    GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader("C:\\Projekte\\Discord_Bot\\test_branch\\Discord_Bot\\Discord_Bot\\Config\\",
-                                                                                                    "config.json", 
-                                                                                                    Logger);
+    public DiscordSocketClient? _client;
 
-    private InteractionService _interactions ;
+    GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader("config.json",Logger);
+
+    public  InteractionService? _interactions ;
     private ulong guildId;
     
     
@@ -41,11 +41,8 @@ class Program
         // Main start if Bot client , call of Websocket
         if (ConfigReader.__GetConfigList != null)
         {
-
             _client = new DiscordSocketClient(config);
             _client.Guilds.FirstOrDefault();
-
-
             _client.InteractionCreated += InteractionHandler;
             await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetConfigList[(int)E_Config.eToken]);
             await _client.StartAsync();
@@ -89,7 +86,6 @@ class Program
         if (message.Content == "!ping")
         {
             await message.Channel.SendMessageAsync("Pong!");
-
         }
     }
 
@@ -98,8 +94,20 @@ class Program
     {
         var context = new SocketInteractionContext(_client, interaction);
         await _interactions.ExecuteCommandAsync(context, null);
+
+        if (interaction is SocketMessageComponent component)
+        {
+            await HandleButtonAsync(component);
+        }
+
     }
-
-
-
+    
+    //Button Handler
+    public async Task HandleButtonAsync(SocketMessageComponent socketMessageComponent)
+    {
+        if (socketMessageComponent.Data.CustomId == "test_button")
+        {
+            await socketMessageComponent.RespondAsync("Button clicked!");
+        }
+    }
 }
