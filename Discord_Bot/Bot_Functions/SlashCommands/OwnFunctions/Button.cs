@@ -9,7 +9,7 @@ using Discord.WebSocket;
 //own refernces
 class Button
 {
-    //Class Variables
+ /*   //Class Variables
     //Field
     private ComponentBuilder component = new ComponentBuilder();
 
@@ -27,6 +27,6 @@ class Button
 
         component.WithButton(button);
 
-    }
+    }*/
 
 }
