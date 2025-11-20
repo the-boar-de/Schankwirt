@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj": {}
+    "/home/chris/Projekte/Discord_Bot/Discord_Bot/Discord_Bot.csproj": {}
   },
   "projects": {
-    "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj": {
+    "/home/chris/Projekte/Discord_Bot/Discord_Bot/Discord_Bot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
+        "projectUniqueName": "/home/chris/Projekte/Discord_Bot/Discord_Bot/Discord_Bot.csproj",
         "projectName": "Discord_Bot",
-        "projectPath": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\Discord_Bot.csproj",
-        "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-        "outputPath": "E:\\Projekte\\Discord_Bot\\Test_Branch\\Discord_Bot\\Discord_Bot\\obj\\",
+        "projectPath": "/home/chris/Projekte/Discord_Bot/Discord_Bot/Discord_Bot.csproj",
+        "packagesPath": "/home/chris/.nuget/packages/",
+        "outputPath": "/home/chris/Projekte/Discord_Bot/Discord_Bot/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Programme\\Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/chris/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,13 +32,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -68,7 +56,7 @@
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[10.0.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -76,7 +64,7 @@
             },
             "System.Windows.Extensions": {
               "target": "Package",
-              "version": "[9.0.9, )"
+              "version": "[10.0.0, )"
             }
           },
           "imports": [
@@ -95,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.121/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
