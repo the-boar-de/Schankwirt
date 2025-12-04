@@ -42,10 +42,6 @@
               "target": "Package",
               "version": "[3.18.0, )"
             },
-            "Discord.Net.Commands": {
-              "target": "Package",
-              "version": "[3.18.0, )"
-            },
             "Discord.Net.Interactions": {
               "target": "Package",
               "version": "[3.18.0, )"
@@ -61,6 +57,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.4, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "System.Windows.Extensions": {
               "target": "Package",

@@ -1,42 +1,78 @@
-//Own 
+//================================================================
+//Description
 
-using Discord;
-using Discord.Interactions;
-using Discord.WebSocket;
+//================================================================
+//Own
 using Enum_Config;
-using Microsoft.VisualBasic;
+//System
 using System;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
+//Projekt
+using Discord;
+using Discord.Interactions;
+using Discord.WebSocket;
+using DiscordBot.Database;
+using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
+
+//---------------------------------------------------------------------------
 
 class Program
 {
-
     //Global 
     //Websocket & Config
-
     public DiscordSocketClient? _client;
-
+    public  InteractionService? _interactions ;
     GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader("config.json",Logger);
 
-    public  InteractionService? _interactions ;
+    //Database
+
+
+    //Docker Input - Bot
+    string token = Environment.GetEnvironmentVariable("TOKEN") ?? "empty";
+    //Discord Project - Variables
     private ulong guildId;
     
-    
-    // MainAsync Methode, die den Bot startet
-    static void Main(string[] args) => new Program().taskClientAsync().GetAwaiter().GetResult();
-    //WebSocket Task
-    public async Task taskClientAsync()
+
+//---------------------------------------------------------------------------    
+// MAIN
+//---------------------------------------------------------------------------
+
+    // Main Entry Point
+       static async Task Main(string[] args)
     {
+        // Create Host
+        var host = Host.CreateDefaultBuilder(args)
+            .ConfigureServices((context, services) =>
+            {
+                //regstriere Services
+                 var startup = new Startup();
+                startup.ConfigureServices(services);
+            })
+            .Build();
+        
+            _ = Task.Run(() => program.taskClientAsync(host.Services));
+    
+    await host.RunAsync();
+    }
+
+
+//---------------------------------------------------------------------------
+//WebSocket Task
+//---------------------------------------------------------------------------
+
+    public async Task taskClientAsync(IServiceProvider services)
+    {
+
         var config = new DiscordSocketConfig
         {
             GatewayIntents = GatewayIntents.Guilds // Minimum für Slash Commands
         };
 
-        var client = new DiscordSocketClient(config);
 
         // Main start if Bot client , call of Websocket
         if (ConfigReader.__GetConfigList != null)
@@ -44,11 +80,16 @@ class Program
             _client = new DiscordSocketClient(config);
             _client.Guilds.FirstOrDefault();
             _client.InteractionCreated += InteractionHandler;
+
+        
             await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetConfigList[(int)E_Config.eToken]);
             await _client.StartAsync();
+
+
             _client.Log += Logger;
             _interactions= new InteractionService(_client);
             _client.MessageReceived += taskMessagerAsync;
+
 
             //When bot is ready check the guilds 
             _client.Ready += async () =>
@@ -70,8 +111,10 @@ class Program
         }
     }
 
-    //---------------------------------------------------------------------------
-    // Log Message
+//---------------------------------------------------------------------------
+// Log Message
+//---------------------------------------------------------------------------
+
     private static Task Logger(LogMessage log)
     {
         Console.WriteLine(log.ToString());
@@ -88,8 +131,10 @@ class Program
             await message.Channel.SendMessageAsync("Pong!");
         }
     }
+//---------------------------------------------------------------------------
+// InteractionHandler führt Commands AUS
+//---------------------------------------------------------------------------
 
-    // InteractionHandler führt Commands AUS
     private async Task InteractionHandler(SocketInteraction interaction)
     {
         var context = new SocketInteractionContext(_client, interaction);
@@ -101,8 +146,9 @@ class Program
         }
 
     }
-    
-    //Button Handler
+//---------------------------------------------------------------------------
+//Button Handler
+//---------------------------------------------------------------------------
     public async Task HandleButtonAsync(SocketMessageComponent socketMessageComponent)
     {
         if (socketMessageComponent.Data.CustomId == "test_button")
