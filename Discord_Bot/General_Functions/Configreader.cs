@@ -1,13 +1,10 @@
-﻿//standard system refernces
+//standard system refernces
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 //own refernces
 
 //project refernces
 using Discord;
-using Discord.WebSocket;
 
 //Class namespase (refernce)
 namespace GeneralFunctions
@@ -17,70 +14,66 @@ namespace GeneralFunctions
     {
         //Class Variables
         //Field
-        private string classname = "Configreader";
+        static private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "";
+        private string ClassName = "Configreader";
         private List<string> config = new();
         private Func<LogMessage, Task> _logger;
-        private string filename;
-
         //Message
-
+        private string ErrorLogMessage = "No TOKEN was handover";
+        private string ReadConfigMessage = "Reading config..";
+        private string ExceptionMessage = "Exception - No TOKEN";
 
         //Properties
-        public IReadOnlyList<string> __GetConfigList
+        public  string __GetString
         {
-            get { return config.AsReadOnly(); }
+            get { return token; }
         }
 
         //Internal
-
         //-------------------------------------------------------------------
         //Methodes
-        private bool ReadConfig(
+        //-------------------------------------------------------------------
+        private bool Checktoken(
             //Inputs
-            string filename,
-            ref Func<LogMessage, Task> logger
-          )
+            string token,
+            ref Func<LogMessage, Task> logger)
         {
-            if (filename == null)
+            if( token == "" || token == null)
             {
-                var ErrorFilePath = new LogMessage(LogSeverity.Error, $"{classname}", "No Path or Filename was handover");
-                _logger(ErrorFilePath);
-
-                //exception handler
-                // ?????
+                var ErrorLog = new LogMessage(LogSeverity.Error, $"{ClassName}", ErrorLogMessage);
+                logger(ErrorLog);
                 return false;
+                throw new Exception(ExceptionMessage);
             }
             else
             {
-                //Logger
-                var InfoReadConfig = new LogMessage(LogSeverity.Info, $"{classname}", "Read Config...");
-                _logger(InfoReadConfig);
-                //Read Config File
-                string projectRoot = Directory.GetParent(AppContext.BaseDirectory).Parent.Parent.Parent.FullName;
-                string fullPath = Path.Combine(projectRoot, "Config", filename);
-                string sTemp = File.ReadAllText(fullPath);
-                config = JsonConvert.DeserializeObject<List<string>>(sTemp);
-
                 return true;
             }
+        }
+        //-------------------------------------------------------------------
 
+        private void ReadConfig(
+            //Inputs
+            ref Func<LogMessage, Task> logger
+          )
+        {
+            if(Checktoken(token, ref logger))
+            {
+                var ReadConfigLog = new LogMessage(LogSeverity.Info, $"{ClassName}", ReadConfigMessage);
+                logger(ReadConfigLog);
+            }
         }
 
         //-------------------------------------------------------------------
         //Constructor 
+        //-------------------------------------------------------------------
         public Configreader(
         //Input
-          string filename,
           Func<LogMessage, Task> logger
         )
         {
-
             _logger = logger;
-            this.filename = filename;
-        
-            ReadConfig(this.filename,ref _logger);
-
-
+            ReadConfig(ref _logger);
         }
     }
 }
