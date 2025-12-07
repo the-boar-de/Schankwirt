@@ -14,7 +14,7 @@ namespace GeneralFunctions
     {
         //Class Variables
         //Field
-        static private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "";
+        static private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "MTM5MjkxODg3MTQ3NjAxNTMyNw.GbFEA3.4GTqX5D2QqV8yc9h-DW3LjplY6GFrUV71zIKC8";
         private string ClassName = "Configreader";
         private List<string> config = new();
         private Func<LogMessage, Task> _logger;

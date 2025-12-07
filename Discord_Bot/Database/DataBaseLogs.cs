@@ -7,6 +7,6 @@ namespace DiscordBot.Database
     {
         public DataBaseLogs(DbContextOptions options) : base(options) { }
     
-        public DbSet<DiscordBot.Database.Logs> Users { get; set; }
+        public DbSet<DiscordBot.Database.Logs> Logs { get; set; }
     }
 }

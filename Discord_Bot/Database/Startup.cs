@@ -13,13 +13,13 @@ namespace DiscordBot.Database
             //General
 
             //Database host
-            var mariadb_host = Environment.GetEnvironmentVariable("MARIADB_HOST") ?? "mariadb";
+            var mariadb_host = Environment.GetEnvironmentVariable("MARIADB_HOST") ?? "localhost";
             //Database Port 
             var mariadb_port = Environment.GetEnvironmentVariable("MARIADB_PORT") ?? "3306";
             //Database user 
-            var mariadb_user = Environment.GetEnvironmentVariable("MARIADB_USER") ?? "user";
+            var mariadb_user = Environment.GetEnvironmentVariable("MARIADB_USER") ?? "testbot";
             //Database password 
-            var mariadb_password = Environment.GetEnvironmentVariable("MARIADB_PASSWORD") ?? "password";
+            var mariadb_password = Environment.GetEnvironmentVariable("MARIADB_PASSWORD") ?? "testbot";
 
             //-------------------------------------------------------------------------------------------
             //Database - Logs

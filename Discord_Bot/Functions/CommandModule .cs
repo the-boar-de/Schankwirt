@@ -7,7 +7,7 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 //own refernces
-
+using DiscordBot.Database;
 //project refernces
 
 
@@ -15,14 +15,14 @@ using Discord.WebSocket;
 //Class
 public class CommandModule : InteractionModuleBase<SocketInteractionContext>
 {
-    //Class Variables
-    //Input
-
-    //Output
-
-    //Properties
-
-    //Internal
+    //Field
+    //Public
+    public readonly DiscordBot.Database.DataBaseLogs _mariadb_databaselogs;
+    //constructor
+    public CommandModule(DiscordBot.Database.DataBaseLogs databaselogs)
+    {
+        _mariadb_databaselogs = databaselogs;
+    }
 
     //-------------------------------------------------------------------
 
@@ -30,7 +30,19 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     [SlashCommand("test", "testcommand")]
     public async Task testatsk()
     {
+        await DeferAsync();
+        _mariadb_databaselogs.Add(new DiscordBot.Database.Logs
+        {
+            Id = 0,
+            ChannelId = Context.Channel.Id,
+            DiscordUserId = Context.User.Id,
+            DiscordUserName = Context.User.Username.ToString(),
+            CommandId = "tetestcommandst"
+        });
+       
+        await _mariadb_databaselogs.SaveChangesAsync();
         await RespondAsync("Pong!");
+        
 
     }
 

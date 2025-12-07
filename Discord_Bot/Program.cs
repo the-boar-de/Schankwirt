@@ -28,7 +28,7 @@ class Program
     //Websocket & Config
     static public DiscordSocketClient? _client;
     static public DiscordSocketConfig? _config;
-    static public InteractionService? _interactions = new InteractionService(_client);
+    static public InteractionService _interactions;
     static public GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader(Logger);
 
     //Database
@@ -85,10 +85,11 @@ class Program
         _client.Log += Logger;
 
         //Add Interactionhandler
+        _interactions = new InteractionService(_client);
         _client.InteractionCreated += InteractionHandler;
 
         //Add Messager
-        _client.MessageReceived += taskMessagerAsync;
+        _client.MessageReceived += MessageRecieved;
 
          //When bot is ready check the guilds 
         _client.Ready += async () =>
@@ -122,7 +123,7 @@ class Program
 //---------------------------------------------------------------------------
 // Event Handler für empfangene Nachrichten
 //---------------------------------------------------------------------------
-    private async Task taskMessagerAsync(SocketMessage message)
+    private async Task MessageRecieved(SocketMessage message)
     {
         if (message.Author.IsBot) return;
 
