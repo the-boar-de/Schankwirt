@@ -7,26 +7,64 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 //own refernces
-class Button
+public class Button
 {
- /*   //Class Variables
     //Field
-    private ComponentBuilder component = new ComponentBuilder();
 
+    //-------------------------------------------------------------------
+    //Methodes
+    //-------------------------------------------------------------------
 
-    public ComponentBuilder __Getcomponent{
-        get {return component}
+    //Button With Label and ID
+    public ButtonBuilder ButtonWithLabelAndID(
+        string label,
+        string stringID,
+        int ID,
+        ButtonStyle buttonStyle
+    )
+    {
+        var button = new ButtonBuilder()
+                            .WithLabel(label)
+                            .WithCustomId(stringID)
+                            .WithId(ID)
+                            .WithStyle(buttonStyle);
+        return button;
     }
+    //-------------------------------------------------------------------
 
+    //Button with Label and URL
+    public ButtonBuilder ButtonWithLabelAndUrl(
+        string label,
+        string Url,
+        ButtonStyle buttonStyle
+    )
+    {
+        var button = new ButtonBuilder()
+                            .WithLabel(label)
+                            .WithUrl(Url)
+                            .WithStyle(buttonStyle);
+        return button;
+    }
+    //-------------------------------------------------------------------
 
-    Button(string ID, string text ){
-        var button = mew ButtonBuilder()
-            .WithLabel(text)
-            .WithCustomId(ID)
-            .WithStyle(ButtonStyle.Primary);
+    //Button With Label and Emote
+    public ButtonBuilder ButtonWithLabelAndEmote(
+        string label,
+        string stringID,
+        IEmote emote,
+        ButtonStyle buttonStyle
+    )
+    {
+        var button = new ButtonBuilder()
+                            .WithLabel(label)
+                            .WithCustomId(stringID)
+                            .WithEmote(emote)
+                            .WithStyle(buttonStyle);
+        return button;
+    }
+    //-------------------------------------------------------------------
 
-        component.WithButton(button);
+    //Button with Label and URL
 
-    }*/
 
 }
