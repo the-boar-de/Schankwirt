@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
+using Discord.Rest;
 using Discord.WebSocket;
 //own refernces
 using DiscordBot.Database;
+using Microsoft.Extensions.Logging;
 //project refernces
-
-
 
 //Class
 public class CommandModule : InteractionModuleBase<SocketInteractionContext>
@@ -23,42 +23,52 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     {
         _mariadb_databaselogs = databaselogs;
     }
+//-----------------------------------------------------------------------------------------------
+/*
+    Single Use commands
 
-    //-------------------------------------------------------------------
 
-    //Commands & Events 
-    [SlashCommand("test", "testcommand")]
+*/
+//-----------------------------------------------------------------------------------------------
+
+    const string description = "testslashcommand";
+    const string commandname = "test";
+    [SlashCommand(commandname, description)]
     public async Task testatsk()
     {
+        await RespondAsync("Pong!");
         await DeferAsync();
-        _mariadb_databaselogs.Add(new DiscordBot.Database.Logs
+        _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
             DiscordUserId = Context.User.Id,
             DiscordUserName = Context.User.Username.ToString(),
-            CommandId = "tetestcommandst"
+            CommandId = commandname
         });
        
         await _mariadb_databaselogs.SaveChangesAsync();
-        await RespondAsync("Pong!");
+        
         
 
     }
+//-----------------------------------------------------------------------------------------------
+/*
+    Button Commands 
 
-    //Button
-    [SlashCommand("testbutton", "testcommand")]
+
+*/
+//-----------------------------------------------------------------------------------------------
+    const string ButtonWithLabelAndID = "ButtonWithLabelAndID";
+    const string ButtonWithLabelAndIDdescription = "Command to create a button with and ID";
+    [SlashCommand(ButtonWithLabelAndID, ButtonWithLabelAndIDdescription)]
     public async Task ButtonTest()
     {
-        var button = new ButtonBuilder()
-        .WithLabel("Test Button")
-        .WithCustomId("test_button")
-        .WithStyle(ButtonStyle.Primary);
+        var button = new Button().ButtonWithLabelAndID("Test Button","test_button",1,ButtonStyle.Primary);
 
         var component = new ComponentBuilder()
         .WithButton(button);
 
-        
         await RespondAsync("Button works!", components: component.Build());
     }
 
