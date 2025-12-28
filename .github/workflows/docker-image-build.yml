@@ -22,7 +22,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD}}
   #build Docker Image
       - name: Build the Docker image
-        run: docker build -t "./Schankwirt/" theboarde/schankwirt:newest
+        run: docker build -t "./schankwirt/" theboarde/schankwirt:newest
   #push Image to Docker Hub
       - name: Push to Docker Hub
         run: docker push theboarde/schankwirt:newest
