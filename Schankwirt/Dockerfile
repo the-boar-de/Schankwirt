@@ -20,4 +20,4 @@ WORKDIR /src
 COPY --from=build /src/out .
 
 #Run Bot
-ENTRYPOINT ["dotnet", "Discord_Bot.dll"]
+ENTRYPOINT ["dotnet", "Schankwirt.dll"]
