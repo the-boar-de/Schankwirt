@@ -13,5 +13,5 @@ jobs:
     steps: 
       - uses: actions/checkout@v4
       - name: Build the Docker image
-        run: docker build -t discord_bot Discord_Bot/
+        run: docker build -t schankwirt Schankwirt/
  #       run: docker build  --file Discord_Bot/Dockerfile --tag discord_bot:$(date +%s) .
