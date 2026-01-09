@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z+I3eKUH8oMiNVeFcMD6nTTsDoG+17z7H5HBYz8wmRuJZLGOJLIZyC5sTsF2yg2ni/JphTqweeEf1TuO6IfjYA==",
+  "dgSpecHash": "+3YB/MhMxVi6OqPygZspfdG+wg4TRjBvT1exZwbjYDzJOKUwqnCWLfo9QnKguRwgBbL0Iax6YOCsu53Hv6Gg9Q==",
   "success": true,
-  "projectFilePath": "/home/chris/Projekte/Discord_Bot/test-branch/Discord_Bot/Schankwirt.csproj",
+  "projectFilePath": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt/Schankwirt.csproj",
   "expectedPackageFiles": [
     "/home/chris/.nuget/packages/discord.net/3.18.0/discord.net.3.18.0.nupkg.sha512",
     "/home/chris/.nuget/packages/discord.net.commands/3.18.0/discord.net.commands.3.18.0.nupkg.sha512",
