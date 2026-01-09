@@ -1,0 +1,36 @@
+# Build Outputs
+bin/
+obj/
+*.dll
+*.exe
+
+# User-specific files
+*.user
+*.suo
+
+# Config mit Token
+appsettings.json
+config.json
+*.config
+
+# Database
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Migrations (optional, falls du sie nicht committen willst)
+Migrations/
+
+#git files
+*.bat
+*.sh

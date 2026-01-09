@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using DiscordBot.Database;
+using Schankwirt.Database;
 
 namespace DiscordBot.Database
 {
