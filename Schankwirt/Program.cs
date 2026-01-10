@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 
 //---------------------------------------------------------------------------
@@ -60,6 +61,13 @@ class Program
             })
             .Build();
 
+            
+            using (var scope = host.Services.CreateScope())
+            {
+             var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
+                db.Database.Migrate();  // Führt alle Migrations aus!
+            }
+    
             _ = Task.Run(() => program.taskClientAsync(host.Services));
 
             await host.RunAsync();
