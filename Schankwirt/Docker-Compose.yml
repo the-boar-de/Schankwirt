@@ -6,30 +6,28 @@ services:
     container_name: mariadb
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: example
-      MARIADB_PASSWORD: testbot
+      MARIADB_ROOT_PASSWORD : example
+      MARIADB_PASSWORD : testbot
       MARIADB_USER : testbot
       MARIADB_DATABASE : logs
+    volumes: 
+      - mariadb-volume:/var/lib/mysql
 
-  
-  volumes: 
-    - mariadb-volume:/var/lib/mysql
-
-#discord bot
-  discord-bot:
-    image: ##name
+#Schankwirt
+  schankwirt:
+    image: theboarde/schankwirt:newest 
     container_name: discord-bot
     restart: always
     depends_on:
       - mariadb
 
     environment:
-        DISCORD_BOT_TOKEN : DISCORD_BOT_TOKEN #replace 'DISCORD_BOT_TOKEN' with the real token
+        DISCORD_TOKEN : DISCORD_BOT_TOKEN #replace 'DISCORD_BOT_TOKEN' with the real token
         MARIADB_HOST : mariadb
         MARIADB_PORT : 3306
         MARIADB_USER : testbot
         MARIADB_PASSWORD : testbot
-        MARIADB_DATABASE: logs
+        MARIADB_DATABASE : logs
 
 
 #volumes

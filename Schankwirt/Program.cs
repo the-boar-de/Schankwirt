@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using DiscordBot.Database;
+using Schankwirt.Database;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.Extensions.Hosting;
@@ -59,19 +59,10 @@ class Program
                 startup.ConfigureServices(services);
             })
             .Build();
-        
-            _ = Task.Run( () => program.taskClientAsync(host.Services));
-    
-        //Start Migration
-        using (var scope = host.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
-            db.Database.Migrate();  //Execute Migrations
-        }
-    
-         _ = Task.Run(() => program.taskClientAsync(host.Services));
-    
-        await host.RunAsync();
+
+            _ = Task.Run(() => program.taskClientAsync(host.Services));
+
+            await host.RunAsync();
     }
 
 

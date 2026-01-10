@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Schankwirt.Database;
 
-namespace DiscordBot.Database
+namespace Schankwirt.Database
 {
     public class Startup
     {
@@ -35,7 +35,8 @@ namespace DiscordBot.Database
             
             // DbContext registrieren
             services.AddDbContext<DataBaseLogs>(options =>
-                options.UseMySql(connectionString, serverVersion)
+                options.UseMySql(connectionString, serverVersion,
+                 mySqlOptions => mySqlOptions.MigrationsAssembly("Schankwirt"))
             );
             //-------------------------------------------------------------------------------------------
 
