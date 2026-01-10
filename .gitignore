@@ -20,3 +20,6 @@ Schankwirt/Config/config.json
 #scripts
 *.sh
 *.bat
+
+#otherfiles
+StyleGuide.md
