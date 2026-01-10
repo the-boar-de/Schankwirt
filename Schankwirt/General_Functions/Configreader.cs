@@ -14,14 +14,13 @@ namespace GeneralFunctions
     {
         //Class Variables
         //Field
-        static private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "MTM5MjkxODg3MTQ3NjAxNTMyNw.GbFEA3.4GTqX5D2QqV8yc9h-DW3LjplY6GFrUV71zIKC8";
+        static private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "TOKEN";
         private string ClassName = "Configreader";
-        private List<string> config = new();
         private Func<LogMessage, Task> _logger;
         //Message
-        private string ErrorLogMessage = "No TOKEN was handover";
-        private string ReadConfigMessage = "Reading config..";
-        private string ExceptionMessage = "Exception - No TOKEN";
+        private const string ErrorLogMessage = "No TOKEN was handover";
+        private const string ReadConfigMessage = "Reading config..";
+        private const string ExceptionMessage = "Exception - No TOKEN";
 
         //Properties
         public  string __GetString

@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using DiscordBot.Database;
+using Schankwirt.Database;
 
-namespace DiscordBot.Database
+namespace Schankwirt.Database
 {   
     public class DataBaseLogs : DbContext
     {
         public DataBaseLogs(DbContextOptions options) : base(options) { }
     
-        public DbSet<DiscordBot.Database.Logs> Logs { get; set; }
+        public DbSet<Logs> Logs { get; set; }
     }
 }

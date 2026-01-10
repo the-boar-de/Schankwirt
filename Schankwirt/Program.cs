@@ -3,7 +3,7 @@
 
 //================================================================
 //Own
-using Enum_Config;
+using GuildItems.Class;
 //System
 using System;
 using System.Net.Sockets;
@@ -18,6 +18,7 @@ using DiscordBot.Database;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 
 //---------------------------------------------------------------------------
@@ -29,8 +30,11 @@ class Program
     static public DiscordSocketClient? _client;
     static public DiscordSocketConfig? _config;
     static public InteractionService _interactions;
-    static public GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader(Logger);
+    static public GeneralFunctions.Configreader ConfigReader = new GeneralFunctions.Configreader(TaskLogger);
 
+    //Guild Classes
+    static public GuildSetup GuildSetup = new GuildSetup();
+    static public GuildEvents GuildEvents = new GuildEvents();
     //Database
 
     //Docker Input - Bot
@@ -69,27 +73,39 @@ class Program
     public async Task taskClientAsync(IServiceProvider services)
     {
 
+        //Discord Config
         _config = new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.Guilds // Minimum für Slash Commands
+            GatewayIntents =  GatewayIntents.Guilds 
+                                | GatewayIntents.GuildMembers 
+                                | GatewayIntents.GuildMessages 
+                                | GatewayIntents.GuildMessageReactions
+                                | GatewayIntents.GuildPresences
+                                | GatewayIntents.GuildIntegrations
+                                | GatewayIntents.GuildVoiceStates
         };
+        
 
         // Main start if Bot client , call of Websocket
         _client = new DiscordSocketClient(_config);
+        _interactions = new InteractionService(_client);
+
+        // Commands zur InteractionService hinzufügen
+        await _interactions.AddModulesAsync(
+            assembly: System.Reflection.Assembly.GetEntryAssembly(),
+            services: services
+        );
+
         _client.Guilds.FirstOrDefault();
        
-        await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetString);
-        await _client.StartAsync();
-
         //Add Logger
-        _client.Log += Logger;
+        _client.Log += TaskLogger;
 
         //Add Interactionhandler
-        _interactions = new InteractionService(_client);
-        _client.InteractionCreated += InteractionHandler;
+        _client.InteractionCreated += async (interaction) => await InteractionHandler(interaction, services);
 
-        //Add Messager
-        _client.MessageReceived += MessageRecieved;
+        //Add Joined Guild Event
+        _client.JoinedGuild += TaskOnJoinedGuilds;
 
          //When bot is ready check the guilds 
         _client.Ready += async () =>
@@ -97,48 +113,51 @@ class Program
                 foreach (var guild in _client.Guilds)
                 {
                     guildId = guild.Id;
-                    var log = new LogMessage(LogSeverity.Info, "Bot", $"Bot ist auf: {guild.Name} (ID: {guild.Id})");
-                    await Logger(log);
-                    await _interactions.RegisterCommandsToGuildAsync(guildId);
+                    var log = new LogMessage(LogSeverity.Info, "Bot", $"Bot is now on: {guild.Name} (ID: {guild.Id})");
+
+                    
+                    await TaskLogger(log);
+                    await _interactions.RegisterCommandsToGuildAsync(guild.Id);
+                    await GuildSetup.InitializeGuild(guild, TaskLogger);
+                    Console.WriteLine($"Setup für '{guild.Name}' abgeschlossen");
                 }
             };
-        // Commands zur InteractionService hinzufügen
-        await _interactions.AddModulesAsync(
-            assembly: System.Reflection.Assembly.GetEntryAssembly(),
-            services: null
-        );
+
+        //Login and start bot
+        await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetString);
+        await _client.StartAsync();
         await Task.Delay(-1);
 
     }
+//===========================================================================
+//Task Methods
+//===========================================================================
 
 //---------------------------------------------------------------------------
-// Log Message
+//Task On Joined Guild
 //---------------------------------------------------------------------------
-    private static Task Logger(LogMessage log)
+private async Task TaskOnJoinedGuilds(SocketGuild guild)
+{
+    //var guildSetup = new GuildSetup();
+    await GuildSetup.InitializeGuild(guild,TaskLogger);
+
+}
+
+//---------------------------------------------------------------------------
+// Task Log Message for Client Actions
+//---------------------------------------------------------------------------
+    private static Task TaskLogger(LogMessage log)
     {
         Console.WriteLine(log.ToString());
         return Task.CompletedTask;
     }
-
 //---------------------------------------------------------------------------
-// Event Handler für empfangene Nachrichten
+// Task InteractionHandler führt Commands AUS
 //---------------------------------------------------------------------------
-    private async Task MessageRecieved(SocketMessage message)
-    {
-        if (message.Author.IsBot) return;
-
-        if (message.Content == "!ping")
-        {
-            await message.Channel.SendMessageAsync("Pong!");
-        }
-    }
-//---------------------------------------------------------------------------
-// InteractionHandler führt Commands AUS
-//---------------------------------------------------------------------------
-    private async Task InteractionHandler(SocketInteraction interaction)
+    private async Task InteractionHandler(SocketInteraction interaction, IServiceProvider services)
     {
         var context = new SocketInteractionContext(_client, interaction);
-        await _interactions.ExecuteCommandAsync(context, null);
+        await _interactions.ExecuteCommandAsync(context, services);
 
         if (interaction is SocketMessageComponent component)
         {
@@ -147,7 +166,7 @@ class Program
 
     }
 //---------------------------------------------------------------------------
-//Button Handler
+// Task Button Handler
 //---------------------------------------------------------------------------
     public async Task HandleButtonAsync(SocketMessageComponent socketMessageComponent)
     {
