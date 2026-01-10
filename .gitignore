@@ -8,8 +8,8 @@ Schankwirt/obj/
 Schankwirt/Config/config.json
 
 # IDE
-.vscode/
-.vs/
+Schankwirt/.vscode/
+Schankwirt/.vs/
 
 # OS
 .DS_Store

@@ -62,7 +62,16 @@ class Program
         
             _ = Task.Run( () => program.taskClientAsync(host.Services));
     
-    await host.RunAsync();
+        //Start Migration
+        using (var scope = host.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
+            db.Database.Migrate();  //Execute Migrations
+        }
+    
+         _ = Task.Run(() => program.taskClientAsync(host.Services));
+    
+        await host.RunAsync();
     }
 
 
