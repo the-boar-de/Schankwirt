@@ -10,6 +10,7 @@ Schankwirt/Config/config.json
 # IDE
 Schankwirt/.vscode/
 Schankwirt/.vs/
+*.sln
 
 # OS
 .DS_Store
