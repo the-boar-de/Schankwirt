@@ -1,0 +1,25 @@
+# Build Outputs
+Schankwirt/bin/
+Schankwirt/obj/
+*.dll
+*.exe
+
+# Config mit Token
+Schankwirt/Config/config.json
+
+# IDE
+Schankwirt/.vscode/
+Schankwirt/.vs/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+#scripts
+*.sh
+*.bat
+
+#otherfiles
+StyleGuide.md

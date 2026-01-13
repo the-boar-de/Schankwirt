@@ -1,2 +1,0 @@
-C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord_Bot.csproj.AssemblyReference.cache
-C:\Projekte\Discord_Bot\Dirscord_Bot\obj\Debug\Dirscord_Bot.csproj.CoreCompileInputs.cache
