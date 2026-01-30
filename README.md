@@ -1,20 +1,22 @@
 ## Read Me
-Version 1.0 
 
 
-# Funktionsweise
-
-## 1. Rollenverwaltung
-## 2. Berechtingsverwaltung
-## 3. Kategorie erstellen
-
+## Why this Bot ? 
+I just wantend to have create my own bot and be able to host it by myself.
+The purpose of this bot is to make the usage of a Discord Server simpler, 
+like give someone the oppurtunity to create channels and roles without making them admin or change their personal permission.
 
 
+# Functions
+The Bot is simple and does nothing complex or special. 
+It has simple commands like 
+
+/Create-role
+/Create-catergory
+...
 
 
-# Beschreibung
 
-## Version 1.0
-Grundlegend dient der Bot als Assistent bzw. reagiert nur auf Commands. Er wird keine eigenständigen Aufgaben erfüllen. 
-Der Bot ist mit der Admin-Rolle verknüft und reagiert nur eingaben dieser Rolle. 
-Das Päfix für den Bot is ein "?". Die Eingabe ist angelehnt an die Commandeingabe wie bei Unix-Systemen.
+## Note
+This is a little side project and nothing to creazy or anything special.
+I just wanted to share my project with the world
