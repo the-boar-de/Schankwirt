@@ -1,15 +1,15 @@
 # Build Outputs
-Schankwirt/bin/
-Schankwirt/obj/
+/bin/
+/obj/
 *.dll
 *.exe
 
 # Config mit Token
-Schankwirt/Config/config.json
+/Config/config.json
 
 # IDE
-Schankwirt/.vscode/
-Schankwirt/.vs/
+/.vscode/
+/.vs/
 *.sln
 
 # OS
