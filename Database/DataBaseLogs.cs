@@ -8,5 +8,7 @@ namespace Schankwirt.Database
         public DataBaseLogs(DbContextOptions options) : base(options) { }
     
         public DbSet<Logs> Logs { get; set; }
+
+        public DbSet<WelcomeMessage> WelcomeMessage {get; set;}
     }
 }

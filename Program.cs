@@ -131,6 +131,16 @@ class Program
                 }
             };
 
+        //New user joined
+      _client.UserJoined += async (user) =>
+        {
+            using (var scope = services.CreateScope())
+            {
+                var _greeting = scope.ServiceProvider.GetRequiredService<Greeting>();
+                 await _greeting.SendMessage(user);
+            }
+        };
+
         //Login and start bot
         await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetString);
         await _client.StartAsync();
@@ -144,12 +154,12 @@ class Program
 //---------------------------------------------------------------------------
 //Task On Joined Guild
 //---------------------------------------------------------------------------
-private async Task TaskOnJoinedGuilds(SocketGuild guild)
-{
-    //var guildSetup = new GuildSetup();
-    await GuildSetup.InitializeGuild(guild,TaskLogger);
+    private async Task TaskOnJoinedGuilds(SocketGuild guild)
+    {   
+      //var guildSetup = new GuildSetup();
+     await GuildSetup.InitializeGuild(guild,TaskLogger);
 
-}
+    }
 
 //---------------------------------------------------------------------------
 // Task Log Message for Client Actions

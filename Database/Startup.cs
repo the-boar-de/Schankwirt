@@ -38,6 +38,7 @@ namespace Schankwirt.Database
                 options.UseMySql(connectionString, serverVersion,
                  mySqlOptions => mySqlOptions.MigrationsAssembly("Schankwirt"))
             );
+             services.AddScoped<Greeting>();
             //-------------------------------------------------------------------------------------------
 
             

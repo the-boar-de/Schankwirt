@@ -290,6 +290,33 @@ const string CommandCreateVoiceChannelInCategoryDescription = "Command to create
         await FollowupAsync($"Voice channel '{newChannel.Name}' was in '{category.Name}' created!");
 
     }
+//-----------------------------------------------------
+//Update greeting cMesage
+//-----------------------------------------------------
+const string CommandUpdateGreeting = "update-greeting";
+const string CommandUpdateGreetingDescription = "Update the greeting message";
+
+    [SlashCommand(CommandUpdateGreeting,CommandUpdateGreetingDescription)]
+    [RequireRole("BotAdmin")]  //Only Bot Admins can use this command
+    public async Task TaskCommandUpdateGreeting(string welcomemassge)
+    {
+        await DeferAsync();
+     _mariadb_databaselogs.Add( new WelcomeMessage
+     {
+            Id = 0,
+            ChannelId = Context.Channel.Id,
+            GuildId = Context.User.Id,
+            DiscordUserName = Context.User.Username.ToString(),
+            Message = welcomemassge,
+            AdditionalInfo = $"User {Context.User.Username.ToString()} created Voice Channel updated Welcome Message",
+            CreatedAt = DateTime.Now
+
+
+     });
+        await _mariadb_databaselogs.SaveChangesAsync();
+    }
+
+
 //===============================================================================================
 /*
     Fallback Commands 

@@ -4602,11 +4602,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt/Schankwirt.csproj",
+      "projectUniqueName": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt.csproj",
       "projectName": "Schankwirt",
-      "projectPath": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt/Schankwirt.csproj",
+      "projectPath": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt.csproj",
       "packagesPath": "/home/chris/.nuget/packages/",
-      "outputPath": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/Schankwirt/obj/",
+      "outputPath": "/home/chris/Projekte/Discord_Bot/Branch/Schankwirt/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/chris/.nuget/NuGet/NuGet.Config"
@@ -4694,7 +4694,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.124/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
