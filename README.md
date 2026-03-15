@@ -1,22 +1,52 @@
-## Read Me
-
-
 ## Why this Bot ? 
-I just wantend to have create my own bot and be able to host it by myself.
-The purpose of this bot is to make the usage of a Discord Server simpler, 
-like give someone the oppurtunity to create channels and roles without making them admin or change their personal permission.
+This bot is a simple side project.
+The Idea was to have a self-hosted bot and help my friends creating easily rolls,categories and channels.
 
 
-# Functions
-The Bot is simple and does nothing complex or special. 
-It has simple commands like 
-
-/Create-role
-/Create-catergory
-...
+## Docker Image
+[DockerImage](https://hub.docker.com/r/theboarde/schankwirt)
 
 
+## Libraries
+1. [Dotnet](https://github.com/discord-net)
+2. [MariaDB](https://github.com/MariaDB)
 
-## Note
-This is a little side project and nothing to creazy or anything special.
-I just wanted to share my project with the world
+
+## Installation
+```
+#docker compose for discord bot
+  #Maria DB
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD : example
+      MARIADB_PASSWORD : testbot
+      MARIADB_USER : testbot
+      MARIADB_DATABASE : logs
+    volumes: 
+      - mariadb-volume:/var/lib/mysql
+
+#Schankwirt
+  schankwirt:
+    image: theboarde/schankwirt:stable
+    container_name: discord-bot
+    restart: always
+    depends_on:
+      - mariadb
+
+    environment:
+        DISCORD_TOKEN : DISCORD_BOT_TOKEN #replace 'DISCORD_BOT_TOKEN' with the real token
+        MARIADB_HOST : mariadb
+        MARIADB_PORT : 3306
+        MARIADB_USER : testbot
+        MARIADB_PASSWORD : testbot
+        MARIADB_DATABASE : logs
+
+
+#volumes
+volumes:
+  mariadb-volume:
+```
