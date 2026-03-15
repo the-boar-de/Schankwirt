@@ -29,7 +29,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     //Public
     private readonly Schankwirt.Database.DataBaseLogs _mariadb_databaselogs;
     //constructor
-    public CommandModule(Schankwirt.Database.DataBaseLogs databaselogs)
+    public CommandModule(Schankwirt.Database.DataBaseLogs? databaselogs = null)
     {
         _mariadb_databaselogs = databaselogs;
     }
@@ -49,18 +49,21 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     {
         
         await DeferAsync();
+        if (Program.BotWithDatabase)
+        {
+            
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandSendMessage,
             AdditionalInfo = "Test",
             CreatedAt = DateTime.Now
         });
        
         await _mariadb_databaselogs.SaveChangesAsync();
+
+        }
         
         await FollowupAsync("Pong!");
 
@@ -104,17 +107,18 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
         //Create a new role in the current guild
         var newRole = await guild.CreateRoleAsync(rolename);
 
+         if (Program.BotWithDatabase)
+        {
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandCreateRole,
             AdditionalInfo = $"User {Context.User.Username.ToString()} created {rolename}",
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"Role {newRole.Name} was created!");
     }
@@ -136,18 +140,19 @@ const string CommandCreateCategoryDescription = "Command to create a category";
         await DeferAsync();
         //Create a new text channel in the current guild
         var NewCategory = await guild.CreateCategoryChannelAsync(categoryname);
+         if (Program.BotWithDatabase)
+        {
         //New Entry in Database -> Logs
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandCreateRole,
             AdditionalInfo = $"User {Context.User.Username.ToString()}created {categoryname}",
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"Channel {NewCategory.Name} was created!");
     }
@@ -165,17 +170,18 @@ const string CommandAssignRoleToCategoryDescription = "Command to assign a role 
         //Modify the permissions of the category to assign the role
         await category.AddPermissionOverwriteAsync(role, new OverwritePermissions(viewChannel: PermValue.Allow));
 
+         if (Program.BotWithDatabase)
+        {
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandAssignRoleToCategory,
             AdditionalInfo = $"User {Context.User}assigned role {role.Name} to category {category.Name}",
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"User {Context.User.Username.ToString()} assigned role '{role.Name}' to category {category.Name}!");
     }
@@ -206,18 +212,19 @@ const string CommandCreateTextAndVoiceChannelInCategoryDescription = "Command to
         {
             properties.CategoryId = category.Id; //Add Voice Channel to specific Category
          });
+          if (Program.BotWithDatabase)
+        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandCreateTextAndVoiceChannelInCategory,
             AdditionalInfo = $"Created Text Channel '{newChannel.Name}' and Voice Channel '{newVoiceChannel.Name}' in Category '{category.Name}'",
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"Text channel '{newChannel.Name}' and voice channel '{newVoiceChannel.Name}' were in '{category.Name}' created!");
 
@@ -239,19 +246,19 @@ const string CommandCreateTextChannelInCategoryDescription = "Command to create 
         {
             properties.CategoryId = category.Id; //Add Text Channel to specific Category
          });
+          if (Program.BotWithDatabase)
+        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandCreateTextChannelInCategory,
             AdditionalInfo = $"User {Context.User.Username.ToString()} created Text Channel '{newChannel.Name}' in Category '{category.Name}'",
             CreatedAt = DateTime.Now
         });
-
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"Text channel '{newChannel.Name}' was in '{category.Name}' created!");
 
@@ -273,19 +280,20 @@ const string CommandCreateVoiceChannelInCategoryDescription = "Command to create
         {
             properties.CategoryId = category.Id; //Add Voice Channel to specific Category
          });
+          if (Program.BotWithDatabase)
+        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            DiscordUserId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             CommandId = CommandCreateVoiceChannelInCategory,
             AdditionalInfo = $"User {Context.User.Username.ToString()} created Voice Channel '{newChannel.Name}' in Category '{category.Name}'",
             CreatedAt = DateTime.Now
         });
         
         await _mariadb_databaselogs.SaveChangesAsync();
+        }
         //Respond
         await FollowupAsync($"Voice channel '{newChannel.Name}' was in '{category.Name}' created!");
 
@@ -301,18 +309,19 @@ const string CommandUpdateGreetingDescription = "Update the greeting message";
     public async Task TaskCommandUpdateGreeting(string welcomemassge)
     {
         await DeferAsync();
-     _mariadb_databaselogs.Add( new WelcomeMessage
-     {
+         if (Program.BotWithDatabase)
+        {
+         _mariadb_databaselogs.Add( new WelcomeMessage
+         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            GuildId = Context.User.Id,
-            DiscordUserName = Context.User.Username.ToString(),
             Message = welcomemassge,
             AdditionalInfo = $"User {Context.User.Username.ToString()} created Voice Channel updated Welcome Message",
             CreatedAt = DateTime.Now
 
 
-     });
+        });
+        }
         await _mariadb_databaselogs.SaveChangesAsync();
     }
 

@@ -41,6 +41,8 @@ class Program
     //Docker Input - Bot
     //Discord Project - Variables
     private ulong guildId;
+
+    static public bool BotWithDatabase= Environment.GetEnvironmentVariable("WITH_DATABASE")?.ToLower() == "true";
     
 
 //---------------------------------------------------------------------------    
@@ -49,8 +51,10 @@ class Program
 
     // Main Entry Point
     static async Task Main(string[] args)
-    {
+     {
         var program = new Program();
+
+    
         // Create Host
         var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
@@ -61,11 +65,14 @@ class Program
             })
             .Build();
 
-            
-            using (var scope = host.Services.CreateScope())
+            // start db when variable is handover as true
+            if (BotWithDatabase)
             {
-             var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
-                db.Database.Migrate();  // Führt alle Migrations aus!
+              using (var scope = host.Services.CreateScope())
+                {
+                 var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
+                    db.Database.Migrate();  // Führt alle Migrations aus!
+                }   
             }
     
             _ = Task.Run(() => program.taskClientAsync(host.Services));
@@ -81,6 +88,7 @@ class Program
     public async Task taskClientAsync(IServiceProvider services)
     {
 
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //Discord Config
         _config = new DiscordSocketConfig
         {
@@ -96,7 +104,9 @@ class Program
 
         // Main start if Bot client , call of Websocket
         _client = new DiscordSocketClient(_config);
-        _interactions = new InteractionService(_client);
+
+       _interactions = new InteractionService(_client);
+
 
         // Commands zur InteractionService hinzufügen
         await _interactions.AddModulesAsync(
