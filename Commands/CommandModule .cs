@@ -29,7 +29,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     //Public
     private readonly Schankwirt.Database.DataBaseLogs _mariadb_databaselogs;
     //constructor
-    public CommandModule(Schankwirt.Database.DataBaseLogs? databaselogs = null)
+    public CommandModule(Schankwirt.Database.DataBaseLogs databaselogs)
     {
         _mariadb_databaselogs = databaselogs;
     }
@@ -42,13 +42,13 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
 */
 //===============================================================================================
 
-    const string CommandSendMessage = "test";
+    /*const string CommandSendMessage = "test";
     const string CommandSendMessageDescription = "testslashcommand";
     [SlashCommand(CommandSendMessage, CommandSendMessageDescription)]
     [RequireRole("BotAdmin")] //Only Bot Admins can use this command
    
 
-    /*public async Task TaskCommandSendMessage()
+    public async Task TaskCommandSendMessage()
     {
         
         await DeferAsync();
@@ -95,7 +95,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
 */
 //===============================================================================================
 // Create Role
-
+/*
     const string CommandCreateRole = "create-role";
     const string CommandCreateRoleDescription = "Command to create a role";
     [SlashCommand(CommandCreateRole, CommandCreateRoleDescription)]
@@ -117,7 +117,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
         await _mariadb_databaselogs.SaveChangesAsync();
         //Respond
         await FollowupAsync($"Role {newRole.Name} was created!");
-    }
+    }*/
 //===============================================================================================
 /*
     Category Commands 
@@ -141,7 +141,7 @@ const string CommandCreateCategoryDescription = "Command to create a category";
         {
             Id = 0,
             ChannelId = Context.Channel.Id,
-            CommandId = CommandCreateRole,
+            CommandId = CommandCreateCategory,
             AdditionalInfo = $"User {Context.User.Username.ToString()}created {categoryname}",
             CreatedAt = DateTime.Now
         });
