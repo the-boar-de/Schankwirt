@@ -42,7 +42,6 @@ class Program
     //Discord Project - Variables
     private ulong guildId;
 
-    static public bool BotWithDatabase= Environment.GetEnvironmentVariable("WITH_DATABASE")?.ToLower() == "true";
     
 
 //---------------------------------------------------------------------------    
@@ -66,14 +65,11 @@ class Program
             .Build();
 
             // start db when variable is handover as true
-            if (BotWithDatabase)
-            {
-              using (var scope = host.Services.CreateScope())
+            using (var scope = host.Services.CreateScope())
                 {
                  var db = scope.ServiceProvider.GetRequiredService<DataBaseLogs>();
                     db.Database.Migrate();  // Führt alle Migrations aus!
-                }   
-            }
+                }
     
             _ = Task.Run(() => program.taskClientAsync(host.Services));
 

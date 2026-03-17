@@ -33,6 +33,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     {
         _mariadb_databaselogs = databaselogs;
     }
+    public BaseCommand Botcommand;
 //===============================================================================================
 /*
     Single Use commands
@@ -45,12 +46,12 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     const string CommandSendMessageDescription = "testslashcommand";
     [SlashCommand(CommandSendMessage, CommandSendMessageDescription)]
     [RequireRole("BotAdmin")] //Only Bot Admins can use this command
-    public async Task TaskCommandSendMessage()
+   
+
+    /*public async Task TaskCommandSendMessage()
     {
         
         await DeferAsync();
-        if (Program.BotWithDatabase)
-        {
             
         _mariadb_databaselogs.Add(new Logs
         {
@@ -62,12 +63,10 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
         });
        
         await _mariadb_databaselogs.SaveChangesAsync();
-
-        }
         
         await FollowupAsync("Pong!");
 
-    }
+    }*/
 //===============================================================================================
 /*
     Button Commands 
@@ -107,8 +106,6 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
         //Create a new role in the current guild
         var newRole = await guild.CreateRoleAsync(rolename);
 
-         if (Program.BotWithDatabase)
-        {
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
@@ -118,7 +115,6 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"Role {newRole.Name} was created!");
     }
@@ -140,8 +136,6 @@ const string CommandCreateCategoryDescription = "Command to create a category";
         await DeferAsync();
         //Create a new text channel in the current guild
         var NewCategory = await guild.CreateCategoryChannelAsync(categoryname);
-         if (Program.BotWithDatabase)
-        {
         //New Entry in Database -> Logs
         _mariadb_databaselogs.Add(new Logs
         {
@@ -152,7 +146,6 @@ const string CommandCreateCategoryDescription = "Command to create a category";
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"Channel {NewCategory.Name} was created!");
     }
@@ -170,8 +163,6 @@ const string CommandAssignRoleToCategoryDescription = "Command to assign a role 
         //Modify the permissions of the category to assign the role
         await category.AddPermissionOverwriteAsync(role, new OverwritePermissions(viewChannel: PermValue.Allow));
 
-         if (Program.BotWithDatabase)
-        {
         _mariadb_databaselogs.Add(new Logs
         {
             Id = 0,
@@ -181,7 +172,6 @@ const string CommandAssignRoleToCategoryDescription = "Command to assign a role 
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"User {Context.User.Username.ToString()} assigned role '{role.Name}' to category {category.Name}!");
     }
@@ -212,8 +202,6 @@ const string CommandCreateTextAndVoiceChannelInCategoryDescription = "Command to
         {
             properties.CategoryId = category.Id; //Add Voice Channel to specific Category
          });
-          if (Program.BotWithDatabase)
-        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
@@ -224,7 +212,6 @@ const string CommandCreateTextAndVoiceChannelInCategoryDescription = "Command to
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"Text channel '{newChannel.Name}' and voice channel '{newVoiceChannel.Name}' were in '{category.Name}' created!");
 
@@ -246,8 +233,6 @@ const string CommandCreateTextChannelInCategoryDescription = "Command to create 
         {
             properties.CategoryId = category.Id; //Add Text Channel to specific Category
          });
-          if (Program.BotWithDatabase)
-        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
@@ -258,7 +243,6 @@ const string CommandCreateTextChannelInCategoryDescription = "Command to create 
             CreatedAt = DateTime.Now
         });
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"Text channel '{newChannel.Name}' was in '{category.Name}' created!");
 
@@ -280,8 +264,6 @@ const string CommandCreateVoiceChannelInCategoryDescription = "Command to create
         {
             properties.CategoryId = category.Id; //Add Voice Channel to specific Category
          });
-          if (Program.BotWithDatabase)
-        {
          //New Entry in Database -> Logs
          _mariadb_databaselogs.Add(new Logs
         {
@@ -293,7 +275,6 @@ const string CommandCreateVoiceChannelInCategoryDescription = "Command to create
         });
         
         await _mariadb_databaselogs.SaveChangesAsync();
-        }
         //Respond
         await FollowupAsync($"Voice channel '{newChannel.Name}' was in '{category.Name}' created!");
 
@@ -309,8 +290,7 @@ const string CommandUpdateGreetingDescription = "Update the greeting message";
     public async Task TaskCommandUpdateGreeting(string welcomemassge)
     {
         await DeferAsync();
-         if (Program.BotWithDatabase)
-        {
+        
          _mariadb_databaselogs.Add( new WelcomeMessage
          {
             Id = 0,
@@ -321,7 +301,6 @@ const string CommandUpdateGreetingDescription = "Update the greeting message";
 
 
         });
-        }
         await _mariadb_databaselogs.SaveChangesAsync();
     }
 
