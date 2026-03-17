@@ -17,41 +17,31 @@ public abstract class BaseCommand : InteractionModuleBase<SocketInteractionConte
 {//Field
     protected SocketGuild guild => Context.Guild as SocketGuild;
     //Public
-    protected readonly Schankwirt.Database.DataBaseLogs _mariadb_databaselogs;
-    protected BaseCommand(Schankwirt.Database.DataBaseLogs? databaselogs = null)
-    {
-        _mariadb_databaselogs = databaselogs;
-    }
-   protected abstract Task ExecuteAsync();
+    protected Schankwirt.Database.DataBaseLogs? databaselogs = null;
 
-        // Drumherum wird einmal hier definiert
     protected async Task RunAsync()
     {
         await DeferAsync();
-
-        try
-        {
-            await ExecuteAsync();
-        }
-        catch (Exception ex)
-        {
-            await FollowupAsync(embed: BuildErrorEmbed(ex.Message));
-        }
     }
-        // Wiederverwendbare Embed-Builder
-    protected Embed BuildSuccessEmbed(string title, string description)
-        => new EmbedBuilder()
-            .WithTitle(title)
-            .WithDescription(description)
-            .WithColor(Color.Green)
-            .Build();
-
-    protected Embed BuildErrorEmbed(string message)
-        => new EmbedBuilder()
-            .WithTitle("Fehler")
-            .WithDescription(message)
-            .WithColor(Color.Red)
-            .Build();
-
-
+    protected async Task WriteToDataBase(
+        int ID,
+        ulong ChannelID,
+        string CommandID,
+        string AdditionalInfo
+    )
+    {
+        if( databaselogs != null)
+        {
+            databaselogs.Add(new Logs
+            {
+                Id = ID,
+                ChannelId = ChannelID,
+                CommandId = CommandID,
+               AdditionalInfo = AdditionalInfo,
+               CreatedAt = DateTime.Now
+         });
+        await databaselogs.SaveChangesAsync();
+        }
+        
+    }
 }
