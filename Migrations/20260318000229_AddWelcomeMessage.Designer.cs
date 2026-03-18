@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Schankwirt.Database;
 
@@ -11,9 +12,11 @@ using Schankwirt.Database;
 namespace Schankwirt.Migrations
 {
     [DbContext(typeof(DataBaseLogs))]
-    partial class DataBaseLogsModelSnapshot : ModelSnapshot
+    [Migration("20260318000229_AddWelcomeMessage")]
+    partial class AddWelcomeMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

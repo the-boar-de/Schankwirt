@@ -15,7 +15,7 @@ namespace GeneralFunctions
         //Class Variables
         //Field
          private string token = Environment.GetEnvironmentVariable("DISCORD_TOKEN") ?? "";
-        private string ClassName = "Configreader";
+        private string ClassName = "Config:";
         private Func<LogMessage, Task> _logger;
         //Message
         private const string ErrorLogMessage = "No TOKEN was handover";

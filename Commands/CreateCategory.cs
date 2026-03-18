@@ -15,9 +15,13 @@ using Discord.WebSocket;
 
 public class CreateCategory: BaseCommand
 {
+
+      public CreateCategory(IServiceProvider services) : base(services)
+    {
+    }
+
 const string CommandCreateCategory = "create-category";
 const string CommandCreateCategoryDescription = "Command to create a category";
-    public async Task Ping() => await RunAsync();
 
     [SlashCommand(CommandCreateCategory, CommandCreateCategoryDescription)]
     [RequireRole("BotAdmin")]  //Only Bot Admins can use this command
@@ -25,7 +29,8 @@ const string CommandCreateCategoryDescription = "Command to create a category";
     {
         //Create a new text channel in the current guild
         var NewCategory = await guild.CreateCategoryChannelAsync(categoryname);
-
+        
+        await DeferAsync();
         await WriteToDataBase(0,Context.Channel.Id,CommandCreateCategory, $"User {Context.User.Username.ToString()}created {categoryname}");
 
         //Respond

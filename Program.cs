@@ -97,30 +97,30 @@ Console.WriteLine("=== taskClientAsync STARTED ===");
                                 | GatewayIntents.GuildVoiceStates
         };
         
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         // Main start if Bot client , call of Websocket
         _client = new DiscordSocketClient(_config);
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
        _interactions = new InteractionService(_client);
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
 
         // Commands zur InteractionService hinzufügen
         await _interactions.AddModulesAsync(
             assembly: System.Reflection.Assembly.GetEntryAssembly(),
             services: services
         );
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         _client.Guilds.FirstOrDefault();
-       
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //Add Logger
         _client.Log += TaskLogger;
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //Add Interactionhandler
         _client.InteractionCreated += async (interaction) => await InteractionHandler(interaction, services);
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //Add Joined Guild Event
         _client.JoinedGuild += TaskOnJoinedGuilds;
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
          //When bot is ready check the guilds 
         _client.Ready += async () =>
             {
@@ -136,7 +136,7 @@ Console.WriteLine("=== taskClientAsync STARTED ===");
                     Console.WriteLine($"Setup für '{guild.Name}' abgeschlossen");
                 }
             };
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //New user joined
       _client.UserJoined += async (user) =>
         {
@@ -146,7 +146,7 @@ Console.WriteLine("=== taskClientAsync STARTED ===");
                  await _greeting.SendMessage(user);
             }
         };
-
+Console.WriteLine("=== taskClientAsync STARTED ==="); 
         //Login and start bot
         await _client.LoginAsync(TokenType.Bot, ConfigReader.__GetString);
         await _client.StartAsync();

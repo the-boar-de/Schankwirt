@@ -15,24 +15,18 @@ using Discord.WebSocket;
 
 public class TestCommand : BaseCommand
 {  
+    //Constructor
+      public TestCommand(IServiceProvider services) : base(services)
+    {
+    }
 
     [RequireRole("BotAdmin")]
-    [SlashCommand("ping", "Antwortet mit Pong")]
-    public async Task Ping() => await RunAsync();
-
-    protected override async Task ExecuteAsync()
+    [SlashCommand("pingggggg", "Antwortet mit Pong")]
+    protected async Task Test()
     {
-        _mariadb_databaselogs.Add(new Logs
-        {
-            Id = 0,
-            ChannelId = Context.Channel.Id,
-            CommandId = CommandSendMessage,
-            AdditionalInfo = "Test",
-            CreatedAt = DateTime.Now
-        });
-
-        var embed = BuildSuccessEmbed("Pong!", $"Latenz: {Context.Client.Latency}ms");
-        await FollowupAsync(embed: embed);
+        await DeferAsync();
+        await WriteToDataBase(0,Context.Channel.Id,"ping","Antwortet mit Pong");
+        await FollowupAsync("pong!");
     }
 
 

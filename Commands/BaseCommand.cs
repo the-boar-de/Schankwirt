@@ -16,12 +16,12 @@ using Discord.WebSocket;
 public abstract class BaseCommand : InteractionModuleBase<SocketInteractionContext>
 {//Field
     protected SocketGuild guild => Context.Guild as SocketGuild;
-    //Public
-    protected Schankwirt.Database.DataBaseLogs? databaselogs = null;
+    protected Schankwirt.Database.DataBaseLogs? databaselogs;
 
-    protected async Task RunAsync()
+  // Constructor
+    public BaseCommand(IServiceProvider services)
     {
-        await DeferAsync();
+        databaselogs = (DataBaseLogs?)services.GetService(typeof(DataBaseLogs));
     }
     protected async Task WriteToDataBase(
         int ID,
@@ -38,7 +38,7 @@ public abstract class BaseCommand : InteractionModuleBase<SocketInteractionConte
                 ChannelId = ChannelID,
                 CommandId = CommandID,
                AdditionalInfo = AdditionalInfo,
-               CreatedAt = DateTime.Now
+               CreatedAt = DateTime.UtcNow
          });
         await databaselogs.SaveChangesAsync();
         }

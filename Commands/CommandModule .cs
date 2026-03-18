@@ -1,4 +1,4 @@
-//standard system refernces
+/*//standard system refernces
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,14 +12,14 @@ using Discord;
 using Discord.Interactions;
 using Discord.Rest;
 using Discord.WebSocket;
-/*
+
 Description to Name a command
 Commands start always with the Name "Command" + "What the command does" + "Module"
 Example: CommandCreateRole
 
 The Description string is the same name as the command but with a "Description" at the end
 Example: CommandCreateRoleDescription
-*/
+
 
 //Class
 public class CommandModule : InteractionModuleBase<SocketInteractionContext>
@@ -66,13 +66,13 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
         
         await FollowupAsync("Pong!");
 
-    }*/
+    }
 //===============================================================================================
 /*
     Button Commands 
 
 
-*/
+
 //===============================================================================================
     const string CommandCreateButtonWithLabelAndID = "create-button-with-label-and-id";
     const string CommandCreateButtonWithLabelAndIDdescription = "Command to create a button";
@@ -123,7 +123,7 @@ public class CommandModule : InteractionModuleBase<SocketInteractionContext>
     Category Commands 
 
 
-*/
+
 //===============================================================================================
 //Create Category
 
@@ -180,7 +180,7 @@ const string CommandAssignRoleToCategoryDescription = "Command to assign a role 
     Channel Commands 
 
 
-*/
+
 //===============================================================================================
 //Create Text And Voice Channel With Category
 
@@ -310,7 +310,7 @@ const string CommandUpdateGreetingDescription = "Update the greeting message";
     Fallback Commands 
 
 
-*/
+
 //===============================================================================================
 //Initialize Bot Again
 const string CommandInitializeBot = "initiliaze-bot";
@@ -323,3 +323,4 @@ const string CommandInitializeBotDescription = "initiliaze bot again";
         }
 
 }
+*/

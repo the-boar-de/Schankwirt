@@ -14,7 +14,11 @@ using Discord.Rest;
 using Discord.WebSocket;
 
 public class CreateRole : BaseCommand{  
-    public async Task Ping() => await RunAsync();
+
+      public CreateRole(IServiceProvider services) : base(services)
+    {
+    }
+    
     const string CommandCreateRole = "create-role";
     const string CommandCreateRoleDescription = "Command to create a role";
     [SlashCommand(CommandCreateRole, CommandCreateRoleDescription)]
@@ -23,6 +27,7 @@ public class CreateRole : BaseCommand{
     {
         var newRole = await guild.CreateRoleAsync(rolename);
 
+        await DeferAsync();
         await WriteToDataBase(0,Context.Channel.Id,CommandCreateRole, $"User {Context.User.Username.ToString()} created {rolename}");
 
         await FollowupAsync($"Role {newRole.Name} was created!");
