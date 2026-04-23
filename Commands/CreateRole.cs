@@ -1,17 +1,5 @@
-//standard system refernces
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
-//own refernces
-using Schankwirt.Database;
-using Microsoft.Extensions.Logging;
 //project refernces
-using Discord;
 using Discord.Interactions;
-using Discord.Rest;
-using Discord.WebSocket;
 
 public class CreateRole : BaseCommand{  
 
@@ -19,16 +7,16 @@ public class CreateRole : BaseCommand{
     {
     }
     
-    const string CommandCreateRole = "create-role";
-    const string CommandCreateRoleDescription = "Command to create a role";
-    [SlashCommand(CommandCreateRole, CommandCreateRoleDescription)]
+    const string Command = "create-role";
+    const string CommandDescription = "Command to create a role";
+    [SlashCommand(Command, CommandDescription)]
     [RequireRole("BotAdmin")] //Only Bot Admins can use this command
-    public async Task TaskCommandCreateRole(string rolename)
+    public async Task TaskCommand(string rolename)
     {
         var newRole = await guild.CreateRoleAsync(rolename);
 
         await DeferAsync();
-        await WriteToDataBase(0,Context.Channel.Id,CommandCreateRole, $"User {Context.User.Username.ToString()} created {rolename}");
+        await WriteToDataBase(0,Context.Channel.Id,Command, $"User {Context.User.Username.ToString()} created {rolename}");
 
         await FollowupAsync($"Role {newRole.Name} was created!");
     }

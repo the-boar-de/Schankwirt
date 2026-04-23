@@ -22,7 +22,7 @@ public class TestCommand : BaseCommand
 
     [RequireRole("BotAdmin")]
     [SlashCommand("pingggggg", "Antwortet mit Pong")]
-    protected async Task Test()
+    protected async Task TaskCommand()
     {
         await DeferAsync();
         await WriteToDataBase(0,Context.Channel.Id,"ping","Antwortet mit Pong");

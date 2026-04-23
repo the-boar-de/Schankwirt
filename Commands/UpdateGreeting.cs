@@ -2,15 +2,15 @@
 using Discord;
 using Discord.Interactions;
 
-public class CreateTextAndVoiceChannelInCategory: BaseCommand
+public class UpdateGreeting: BaseCommand
 {
 
-      public CreateTextAndVoiceChannelInCategory(IServiceProvider services) : base(services)
+      public UpdateGreeting(IServiceProvider services) : base(services)
     {
     }
 
-const string Command = "create-text-voice-in-category";
-const string CommandDescription = "Command to create a channel in a category";
+const string Command = "update-greeting";
+const string CommandDescription = "Update the greeting message";
 
     [SlashCommand(Command, CommandDescription)]
     [RequireRole("BotAdmin")]  //Only Bot Admins can use this command
