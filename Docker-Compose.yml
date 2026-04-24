@@ -6,9 +6,9 @@ services:
     container_name: mariadb
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD : example
-      MARIADB_PASSWORD : testbot
-      MARIADB_USER : testbot
+      MARIADB_ROOT_PASSWORD : #Set safe password here
+      MARIADB_PASSWORD : #Set safe password here 
+      MARIADB_USER : MariaDB_User
       MARIADB_DATABASE : logs
     volumes: 
       - mariadb-volume:/var/lib/mysql
@@ -25,8 +25,8 @@ services:
         DISCORD_TOKEN : DISCORD_BOT_TOKEN #replace 'DISCORD_BOT_TOKEN' with the real token
         MARIADB_HOST : mariadb
         MARIADB_PORT : 3306
-        MARIADB_USER : testbot
-        MARIADB_PASSWORD : testbot
+        MARIADB_USER : MariaDB_User
+        MARIADB_PASSWORD : #Set safe password here (Same as for the DB)
         MARIADB_DATABASE : logs
 
 
