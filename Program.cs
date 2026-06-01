@@ -16,7 +16,6 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using Schankwirt.Database;
 using Microsoft.Extensions.DependencyInjection;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
