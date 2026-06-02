@@ -12,6 +12,7 @@
 /.vs/
 *.sln
 /.idea
+/.idea/
 
 # OS
 .DS_Store
