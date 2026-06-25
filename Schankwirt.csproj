@@ -24,13 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="General_Functions\" />
-    <Folder Include="_Structs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Dockerfile" />
     <Content Remove="Dockerfile" />
 </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\Commands\" />
+    <Folder Include="src\Panels\" />
+  </ItemGroup>
 
 </Project>

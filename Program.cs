@@ -107,7 +107,6 @@ class Program
        
         //Add Logger
         _client.Log += TaskLogger;
-
         //Add Interactionhandler
         _client.InteractionCreated += async (interaction) => await InteractionHandler(interaction, services);
 

@@ -12,12 +12,12 @@ namespace Schankwirt.Database
 {
     public class WelcomeMessage
     {
-        public int Id { get; set;}                 //Primaly key      
-        public string WelcomeMessage {get; set;}      //Welcomemessage
-        public string ?DiscordUserName {get; set;}  //Name of User
-        public string ?CommandId {get; set;}      //Command that was used
-        public string ?AdditionalInfo {get; set;} //Additional Info
-        public DateTime CreatedAt {get; set;} //Timestamp
+        public int Id { get; set;}                          //Primaly key      
+        public string Message {get; set;}                   //Welcomemessage
+        public string ?DiscordUserName {get; set;}          //Name of User
+        public string ?CommandId {get; set;}                //Command that was used
+        public string ?AdditionalInfo {get; set;}           //Additional Info
+        public DateTime CreatedAt {get; set;}               //Timestamp
 
     }   
 
